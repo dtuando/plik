@@ -62,14 +62,18 @@ $ sudo apt install caddy
 $ cd /etc/caddy
 $ nano Caddyfile
 ```
-__edit your servers information__
+__edit your Caddyfile to look like this__
 
 ```sh
 domain.com {
          reverse_proxy localhost:8080
 }
 ```
+##### reload caddy
 
+```sh
+$ caddy reload
+```
 
 ### Cli client
 Plik is shipped with a powerful golang multiplatform cli client (downloadable in web interface) :  
