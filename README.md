@@ -38,27 +38,39 @@ Plik is a scalable & friendly temporary file upload system (Wetransfer like) in 
 To run plik, it's very simple :
 ```sh
 $ wget https://github.com/root-gg/plik/releases/download/1.3.4/plik-1.3.4-linux-amd64.tar.gz
-$ tar xzvf plik-1.3.4-linux-64bits.tar.gz
-$ cd plik-1.3.4/server
+$ tar xzvf plik-1.3.4-linux-amd64.tar.gz
+$ mv plik-1.3.4 plik
+$ cd plik/server
 $ ./plikd
 ```
-Et voilà ! You now have a fully functional instance of Plik running on http://127.0.0.1:8080.  
+You now have a fully functional instance of Plik running on http://127.0.0.1:8080.  
 You can edit server/plikd.cfg to adapt the configuration to your needs (ports, ssl, ttl, backend params,...)
 
-##### From sources
-To compile plik from sources, you'll need golang and npm installed on your system.
+##### Install Caddy - Ubuntu 20.04 LTS
+We use Caddy as our reverse proxy. It works out of the box with a simple Caddyfile.
 
-First, get the project and libs via go get :
 ```sh
-$ go get github.com/root-gg/plik/server
-$ cd $GOPATH/src/github.com/root-gg/plik/
+$ sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+$ curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo tee /etc/apt/trusted.gpg.d/caddy-stable.asc
+$ curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+$ sudo apt update
+$ sudo apt install caddy
+```
+##### Configure Caddyfile
+
+```sh
+$ cd /etc/caddy
+$ nano Caddyfile
+```
+__edit your servers information__
+
+```sh
+domain.com {
+        # Another common task is to set up a reverse proxy:
+         reverse_proxy localhost:8080
+}
 ```
 
-Build everything and run it :
-```sh
-$ make
-$ cd server && ./plikd
-```
 
 ### Cli client
 Plik is shipped with a powerful golang multiplatform cli client (downloadable in web interface) :  
