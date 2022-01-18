@@ -66,7 +66,6 @@ __edit your servers information__
 
 ```sh
 domain.com {
-        # Another common task is to set up a reverse proxy:
          reverse_proxy localhost:8080
 }
 ```
